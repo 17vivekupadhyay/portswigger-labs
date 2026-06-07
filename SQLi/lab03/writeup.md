@@ -1,0 +1,5 @@
+# PortSwigger SQL Injection Lab — Determining the Number of Columns
+
+This lab demonstrates the first step of a UNION-based SQL injection attack: identifying how many columns are returned by the original query. The application has a SQL injection vulnerability in the `category` parameter, and I tested the column count by injecting `ORDER BY` values until the application returned an error. I wrote a Python script that loops through possible column numbers, sends requests like `'+order+by+1--`, `'+order+by+2--`, and so on, then checks for `Internal Server Error` in the response to determine when the column number is too high. One struggle I ran into was understanding that the error is useful because it tells me the previous number was the valid column count. The main lesson is that before using UNION SQL injection to extract data, I first need to understand the structure of the original query.
+
+Source: https://portswigger.net/web-security/sql-injection/union-attacks/lab-determine-number-of-columns
