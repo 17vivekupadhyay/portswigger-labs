@@ -1,0 +1,5 @@
+# PortSwigger Authentication Lab — Password Reset Broken Logic
+
+This lab demonstrates a broken password reset flow where the application does not properly validate the reset token when the new password is submitted. I first used Burp Suite Repeater to inspect the password reset request and noticed that the `username` and `temp-forgot-password-token` values could be modified directly in the POST request. By changing the username to `carlos` and supplying an arbitrary token value, I was able to reset Carlos’s password without having access to his email or a valid reset token. I then automated the same process with a Python script using `requests.Session()`, which sends the password reset request, logs in as Carlos with the new password, and checks the response for `Log out` to confirm success. The main lesson is that password reset tokens must be strongly tied to the correct user account and revalidated server-side at the final password change step, not just when the reset page is first loaded.
+
+Source: https://portswigger.net/web-security/authentication/other-mechanisms/lab-password-reset-broken-logic
