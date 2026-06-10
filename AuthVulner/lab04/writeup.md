@@ -1,0 +1,6 @@
+#PortSwigger Authentication Lab — Username Enumeration via Subtly Different Responses
+
+This lab demonstrates a username enumeration vulnerability caused by tiny differences in the login error message. I solved it using Burp Suite by submitting a failed login attempt, capturing the POST /login request, and sending it to Intruder. From there, I placed the payload position on the username parameter and used the provided candidate username list while keeping the password value static. The key step was using Burp’s response comparison / extracted error message behavior to notice that one username produced a slightly different response than the others. Instead of returning the normal Invalid username or password. message, the valid username response had a subtle formatting difference, which exposed the correct account. After identifying the valid username, I repeated the process against the password field using the candidate password list and looked for the successful login response, such as a 302 redirect. The main lesson is that authentication systems should return completely consistent error messages, status codes, response lengths, and timing behavior so attackers cannot distinguish valid usernames from invalid ones.
+
+Source: https://portswigger.net/web-security/authentication/password-based/lab-username-enumeration-via-subtly-different-responses
+
